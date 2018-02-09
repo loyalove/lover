@@ -1,0 +1,3 @@
+<!--pages/mine/info/info.wxml-->
+<text>pages/mine/info.wxml</text>
+<navigator url="/pages/mine/mine" open-type="switchTab">返回</navigator>

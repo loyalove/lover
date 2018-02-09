@@ -1,1 +1,4 @@
 /* home.wxss */
+.slide-image{
+  width: 100%;
+}

@@ -1,25 +1,94 @@
-//index.js
-//获取应用实例
-var app = getApp()
+const app = getApp()
+var timer; // 计时器
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    motto: '美美&的的',
-    userInfo: {}
+    circle:{}
   },
-  //登录事件处理函数
-  doLogin: function (e) {
+  
+  toIndex:function(){
+    console.log('-------s-------')
     wx.reLaunch({
-      url: '../home/home',
+      url: '/pages/custom_page_index/index',
     })
   },
-  onLoad: function () {
+
+  //定时刷新
+  freshLoading: function () {
+    let setting  =  app.setting
+   
+  },
+
+  //扫推荐码码进入
+  loadFromScene: function (inputScene){
+    let postParam = {}
+    postParam.inputScene = inputScene
     var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+    var customIndex = that.AddClientUrl("/wx_mini_code_login.html", postParam, 'post')
+
+          //发起网络请求
+          wx.request({
+            url: customIndex.url,
+            data: customIndex.param,
+            header: app.headerPost,
+            method: 'POST',
+            success: function (e) {
+              console.log(e)
+            }
+          })
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    let that = this
+   
+    this.Countdown(app);
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    
+  },
+
+  Countdown:function(){
+    let that = this
+    console.log('***')
+    if (!!app.setting) {
+      app.toIndex()
+    }
+    else {
+      timer = setTimeout(function () {
+        that.Countdown();
+      }, 1000);
+    }
   }
+
 })
+
+//定时器
+/*  function Countdown(page) {
+   console.log('2')
+   if (!!page.setting){
+     //setTimeout(function () {  }, 200)
+     page.toIndex()
+   }
+   else{
+     timer = setTimeout(function () {
+       Countdown(page);
+     }, 1000);
+   }
+}; */
