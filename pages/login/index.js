@@ -234,32 +234,20 @@ Page({
               } else {
                 wx.hideLoading()
 
-                wx.showModal({
+                wx.showToast({
                   title: '微信登录失败',
-                  content: '使用账号密码登录',
-                  success: function (res) {
-                    if (res.confirm) {
-                     
-                    } else if (res.cancel) {
-                      //that.wxLogin()
-                    }
-                  }
+                  image: '/images/icons/tip.png',
+                  duration: 2000
                 })
               }
             },
             fail: function (e) {
               console.log('----fail------')
               console.log(e)
-              wx.showModal({
-                title: '提示',
-                content: '微信登录失败，账号密码登录',
-                success: function (res) {
-                  if (res.confirm) {
-
-                  } else if (res.cancel) {
-                    that.wxLogin()
-                  }
-                }
+              wx.showToast({
+                title: '微信登录失败',
+                image: '/images/icons/tip.png',
+                duration: 2000
               })
             }
           })
