@@ -1,6 +1,7 @@
 
 import { json2Form } from "../../public/json2Form.js";
-const app = getApp()
+const app = getApp();
+
 Page({
  
   /** 
@@ -276,6 +277,11 @@ Page({
       }
     })
   },
+  toLogin: function(){
+    wx.navigateTo({
+      url: '/pages/login/index'
+    })
+  },
 
 /* 加载购物车内容 */
 
@@ -289,18 +295,10 @@ Page({
         console.log(res.data)
         if (res.data.errcode == '10001'){
           that.setData({ cartData: null })
-          wx.showModal({
-            title: '提示',
-            content: '用户未登录',
-            success: function (res) {
-              if (res.confirm) {
-                wx.navigateTo({
-                  url: '/pages/login/index'
-                })
-              } else if (res.cancel) {
-
-              }
-            }
+          wx.showToast({
+            title: '请登录',
+            image: '/images/icons/tip.png',
+            duration: 2000
           })
         }
         else{
@@ -309,8 +307,6 @@ Page({
           }else{
             that.setData({ cartData: res.data.result })
           }
-          
-          
         }
         
         //wx.hideLoading()
@@ -386,8 +382,7 @@ Page({
     this.setData({ setting: app.setting })
     this.setData({ loginUser: app.loginUser })
 
-    this.getCart()
-    
+    !!this.loginUser && this.getCart()
 
   },
 
@@ -410,8 +405,9 @@ Page({
   onShow: function () {
     if (!!app.loginUser) {
       this.setData({ loginUser: app.loginUser })
+      this.getCart()
     }
-    this.getCart()
+    
   },
 
   /**

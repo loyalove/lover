@@ -10,7 +10,6 @@ Page({
   },
   
   toIndex:function(){
-    console.log('-------s-------')
     wx.reLaunch({
       url: '/pages/custom_page_index/index',
     })
@@ -66,7 +65,6 @@ Page({
 
   Countdown:function(){
     let that = this
-    console.log('***')
     if (!!app.setting) {
       app.toIndex()
     }

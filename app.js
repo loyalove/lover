@@ -112,9 +112,7 @@ App({
     sysWidth: wx.getSystemInfoSync().windowWidth, //图片宽度  
   },
  toIndex:function(){
-   console.log(this.miniIndexPage)
    let miniIndexPage = this.getSpaceStr(this.miniIndexPage,'.')
-   console.log(miniIndexPage)
 
    //这个需要注意  switchTab  和  redirectTo
    
@@ -170,8 +168,6 @@ App({
            wx.navigateTo({
              url: '/pages/login/index'
            })
-         } else if (res.cancel) {
-
          }
        }
      })
@@ -486,19 +482,19 @@ App({
       title: '登录中',
       mask: true
     })
-    var that = this
-    
+    let that = this
     
     wx.login({
       success: function (res) {
-        console.log(res.code)
-        if (res.code && res.code.indexOf('mock') == -1) {
+        let code = res.code
+        console.log(`API登录返回code=${code}`)
+        if (code && code.indexOf('mock') == -1) {
           console.log('---------------------')
           console.log(res)
           console.log('---------------------')
           //发起网络请求
           let loginParam = {}
-          loginParam.code = res.code
+          loginParam.code = code
           loginParam.scene = more_scene
           let customIndex = that.AddClientUrl("/wx_mini_code_login.html", loginParam, 'post')
           wx.request({
@@ -539,24 +535,11 @@ App({
               }else{
                 wx.hideLoading()
                
-                /* wx.showModal({
-                  title: '提示',
-                  content: '登录失败，重新登录',
-                  success: function (res) {
-                    if (res.confirm) {
-                      wx.navigateTo({
-                        url: '/pages/login/index'
-                      })
-                    } else if (res.cancel) {
-
-                    }
-                  }
-                }) */
-                wx.showToast({
-                  title: '登录失败',
-                  image: '/images/icons/tip.png',
-                  duration: 2000
-                })
+                // wx.showToast({
+                //   title: '登录失败',
+                //   image: '/images/icons/tip.png',
+                //   duration: 2000
+                // })
               }
             },
             fail: function (e) {
@@ -575,11 +558,11 @@ App({
                   }
                 }
               }) */
-              wx.showToast({
-                title: '登录失败',
-                image: '/images/icons/tip.png',
-                duration: 2000
-              })
+              // wx.showToast({
+              //   title: '登录失败',
+              //   image: '/images/icons/tip.png',
+              //   duration: 2000
+              // })
             }
           })
         } else {
