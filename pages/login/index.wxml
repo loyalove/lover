@@ -5,7 +5,7 @@
   <form class='form' catchsubmit="formSubmit">
     <view class='InputContainer'>
       <image src='http://image1.sansancloud.com/taoditongzhuang/2017_04/05/12/39/10_629.jpg'></image>
-      <input name="username" value='{{userSign.username}}' placeholder="用户名(手机号)"></input>
+      <input name="username" value='{{userSign.username}}' placeholder="用户名/手机号"></input>
     </view>
 
     <view class='InputContainer'>
